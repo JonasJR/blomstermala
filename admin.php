@@ -1,6 +1,10 @@
 <?php
   session_start();
   include('db.php');
+
+  ini_set('display_errors',1);
+  ini_set('display_startup_errors',1);
+  error_reporting(-1);
 ?>
 
 <?php
@@ -10,11 +14,11 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT id, user, password FROM users WHERE username=$username AND password=$password");
+    $sql = "SELECT AnvandarID, Email, Password FROM Anvandare WHERE Email=$username AND Password=$password";
 
-    $result = mysqli($link, $sql);
+    $result = mysqli_query($link, $sql);
 
-    if ($row = mysql_fetch_array($result) {
+    if ($row = mysql_fetch_array($result)) {
       $_SESSION['id'] = $row['id'];
     } else {
       $error = "Invalid email or password";
@@ -37,7 +41,7 @@
         <div class="col-md-6 col-md-offset-3">
         <h1>Logga in</h1>
         <?php
-          if(error) {
+          if(isset($error)) {
             echo "<p>$error</p>";
           }
         ?>
