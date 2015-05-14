@@ -1,11 +1,14 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-   "http://www.w3.org/TR/html4/strict.dtd">
+<?php
+  include('db.php');
+?>
+
+<!DOCTYPE html>
 <html>
-	<head>
-	    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Äspåröds Äventyrsblad!</title>
-		<link type="text/css" rel="stylesheet" href="blad.css" />
-	</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Äspåröds Äventyrsblad!</title>
+    <link type="text/css" rel="stylesheet" href="blad.css" />
+  </head>
 
 	<body>
 
@@ -15,33 +18,14 @@
 	</div>
 
 	<div id="lnav">
-		<?php
-$link = mysqli_connect('195.178.235.60', 'm11k5638', 'jonasremgard');
-if (!$link)
-{
-	echo('Unable to connect to the database server.');
-	exit();
-}
+	<?php
+    $sql = "select Kategorinamn, SubKategorinamn, SubKategoriID from Kategori inner join Sub_Kategori on Sub_Kategori.KategoriID=Kategori.KategoriID order by Kategori.KategoriID";
 
-if (!mysqli_set_charset($link, 'utf8'))
-{
-	echo('Unable to set database connection encoding.');
-	exit();
-}
-
-if (!mysqli_select_db($link, 'm11k5638'))
-{
-	echo('Unable to locate the company database.');
-	exit();
-}
-
-$sql = "select Kategorinamn, SubKategorinamn, SubKategoriID from Kategori inner join Sub_Kategori on Sub_Kategori.KategoriID=Kategori.KategoriID order by Kategori.KategoriID";
-$result = mysqli_query($link, $sql);
-if (!$result)
-{
-	echo('Error processing query: ' . mysqli_error($link));
-	exit();
-}
+    $result = mysqli_query($link, $sql);
+    if (!$result) {
+      echo('Error processing query: ' . mysqli_error($link));
+      exit();
+    }
 
 $owner = "";
 
@@ -105,24 +89,6 @@ while ($row = mysqli_fetch_array($result))
 
 	<div id="content">
 				<?php
-$link = mysqli_connect('195.178.235.60', 'm11k5638', 'jonasremgard');
-if (!$link)
-{
-	echo('Unable to connect to the database server.');
-	exit();
-}
-
-if (!mysqli_set_charset($link, 'utf8'))
-{
-	echo('Unable to set database connection encoding.');
-	exit();
-}
-
-if (!mysqli_select_db($link, 'm11k5638'))
-{
-	echo('Unable to locate the company database.');
-	exit();
-}
 
 $cat = $_GET['cat'];
 
