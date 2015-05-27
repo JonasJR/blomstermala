@@ -7,17 +7,21 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Blomstermåla</title>
-    <link type="text/css" rel="stylesheet" href="blad.css" />
+   <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 
 	<body>
+	<div class="container">
 
-	<div id="toplogo">
+	<div class="row">
+	<div class="col-md-6 col-md-offset-3">
 		<h1>Blomstermåla</h1>
 		<p>Dagbladet</p>
+		</div>
 	</div>
 
-	<div id="lnav">
+	<div class="row">
+	<div class="col-md-4">
 	<?php
 
     $sql = "select Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
@@ -49,7 +53,7 @@
   ?>
   </div>
 
-	<div id="article">
+	<div class="col-md-8">
 		<?php
 
 $ArtID = $_GET['ArtID'];
@@ -101,6 +105,7 @@ echo('<address>'.$row1[4].', fotograf</address>');
 ?>
 
 	</div>
-
+	</div>
+</div>
 	</body>
 </html>

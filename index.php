@@ -7,17 +7,21 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Blomstermåla</title>
-    <link type="text/css" rel="stylesheet" href="blad.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
 
 	<body>
 
-	<div id="toplogo">
-		<h1>Blomstermåla</h1>
-		<p>Dagbladet</p>
+	<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h1>Blomstermåla</h1>
+			<p>Dagbladet</p>
+		</div>
 	</div>
 
-	<div id="lnav">
+	<div class="row">
+	<div class="col-md-4">
 	<?php
     $sql = "select Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
 
@@ -47,29 +51,7 @@ echo("\t</ul>\n</li>\n");
 echo("</ul>\n");
 ?>
 	</div>
-
-	<div id="rightsplash">
-		<h3>Våra mest kommenterade artiklar</h3>
-		<?php
-
-$sql = "select Article.ArticleID, Article.Date, Article.Title, count(Comment.ArticleID) as NumberOfComments from Comment left join Article on Comment.ArticleID=Article.ArticleID group by Title order by NumberOfComments desc limit 3";
-$result = mysqli_query($link, $sql);
-if (!$result)
-{
-	echo('Error processing query: ' . mysqli_error($link));
-	exit();
-}
-
-
-while ($row = mysqli_fetch_array($result))
-{
-
-	echo('<li><a href="webbArticle.php?ArtID='.$row[0].'">'.$row[2].' ('.$row[3].')</a></li>');
-}
-?>
-	</div>
-
-	<div id="content">
+	<div class="col-md-4">
 				<?php
 
 $cat = $_GET['cat'];
@@ -99,6 +81,27 @@ while ($row = mysqli_fetch_array($result))
 	echo('</div>');
 }
 ?>
+	</div>
+	<div class="col-md-4">
+		<h3>Våra mest kommenterade artiklar</h3>
+		<?php
+
+$sql = "select Article.ArticleID, Article.Date, Article.Title, count(Comment.ArticleID) as NumberOfComments from Comment left join Article on Comment.ArticleID=Article.ArticleID group by Title order by NumberOfComments desc limit 3";
+$result = mysqli_query($link, $sql);
+if (!$result)
+{
+	echo('Error processing query: ' . mysqli_error($link));
+	exit();
+}
+
+
+while ($row = mysqli_fetch_array($result))
+{
+
+	echo('<li><a href="webbArticle.php?ArtID='.$row[0].'">'.$row[2].' ('.$row[3].')</a></li>');
+}
+?>
+	</div>
 	</div>
 	</body>
 </html>
