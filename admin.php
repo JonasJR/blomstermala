@@ -14,12 +14,19 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT AnvandarID, Email, Password FROM Anvandare WHERE Email=$username AND Password=$password";
+    $sql = "SELECT * FROM User WHERE Email='$username' AND Password='$password'";
 
     $result = mysqli_query($link, $sql);
+    if (!$result)
+    {
+      echo('Fel vid inloggning' . mysqli_error($link));
+      exit();
+    }
 
     if ($row = mysql_fetch_array($result)) {
-      $_SESSION['id'] = $row['id'];
+      if ($row['Moderator'] == true) {
+        $_SESSION['id'] = $row['id'];
+      }
     } else {
       $error = "Invalid email or password";
     }
@@ -61,7 +68,7 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
         <?php
-          $sql = "SELECT * FROM Artikel";
+          $sql = "SELECT * FROM Article";
           $result = mysqli_query($link, $sql);
 
 
@@ -72,7 +79,8 @@
           }
           while ($row = mysqli_fetch_array($result)) {
             echo '<article>';
-            echo '<header>' + $row['Rubrik'] + '</header>';
+            echo '<header>' + $row['Title'] + '</header>';
+            echo '<body>';
             echo '</article>';
           }
         ?>
