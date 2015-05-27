@@ -37,23 +37,39 @@
   </head>
   <body>
     <div class="container">
+    <?php if(isset($_SESSION['id'])): ?>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-        <h1>Logga in</h1>
+          <h1>Skriv ny artikel</h1>
+          <form method="post" action="" class="form-group">
+            <label for="title">Titel</label>
+            <input type="text" name="title" class="form-control">
+            <textarea name="content" class="form-control"></textarea>
+            <button type="submit" class="btn btn-default">Spara</button>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        </div>
+      </div>
+    <?php else: ?>
+      <h1>Logga in</h1>
         <?php
           if(isset($error)) {
             echo "<p>$error</p>";
           }
         ?>
-          <form method="post" action="" class="form-group">
-            <label for="username">Användarnamn</label>
-            <input type="text" name="username" class="form-control">
-            <label for="password">Lösenord</label>
-            <input type="password" name="password" class="form-control">
-            <button type="submit" class="btn btn-default">Login</button>
+      <form method="post" action="" class="form-group">
+        <label for="username">Användarnamn</label>
+        <input type="text" name="username" class="form-control">
+        <label for="password">Lösenord</label>
+        <input type="password" name="password" class="form-control">
+        <button type="submit" class="btn btn-default">Login</button>
           </form>
         </div>
       </div>
+    <?php endif ?>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
