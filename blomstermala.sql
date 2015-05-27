@@ -52,6 +52,7 @@ create table User
  Password	varchar(20),
  Moderator	boolean,
  primary key(UserID))ENGINE=InnoDB CHARACTER SET=utf8;
+ 
 create table Picture
 (Height		int,
 Width		int,

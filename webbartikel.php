@@ -40,7 +40,7 @@
     		echo('<li><a href="">'.$row[0]."</a>\n\t<ul>\n");
     		$owner=$row[0];
     	}
-    	echo('<li><a href="webbtidning.php?cat='.$row[2].'">'.$row[1].'</a></li>');
+    	echo('<li><a href="index.php?cat='.$row[2].'">'.$row[1].'</a></li>');
 
 
     }
