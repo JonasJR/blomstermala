@@ -6,21 +6,21 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Äspåröds Äventyrsblad!</title>
+    <title>Blomstermåla</title>
     <link type="text/css" rel="stylesheet" href="blad.css" />
   </head>
 
 	<body>
 
 	<div id="toplogo">
-		<h1>Äspåröds Äventyrsblad!</h1>
-		<p>Det senaste om det roligaste</p>
+		<h1>Blomstermåla</h1>
+		<p>Dagbladet</p>
 	</div>
 
 	<div id="lnav">
 	<?php
 
-    $sql = "select Kategorinamn, SubKategorinamn, SubKategoriID from Kategori inner join Sub_Kategori on Sub_Kategori.KategoriID=Kategori.KategoriID order by Kategori.KategoriID";
+    $sql = "select Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
     $result = mysqli_query($link, $sql);
     if (!$result)
     {
@@ -49,12 +49,12 @@
   ?>
   </div>
 
-	<div id="artikel">
+	<div id="article">
 		<?php
 
 $ArtID = $_GET['ArtID'];
 
-$sql = "select Artikel.ArtikelID, Artikel.Rubrik, Artikel.Ingress, Artikel.Brodtext, Artikel.Datum from Artikel where ArtikelID='$ArtID'";
+$sql = "select Article.ArticleID, Article.Title, Article.Ingress, Article.Content, Article.Date from Article where ArticleID='$ArtID'";
 $result = mysqli_query($link, $sql);
 if (!$result)
 {
@@ -64,19 +64,19 @@ if (!$result)
 
 $row = mysqli_fetch_array($result);
 
-$sql = "select Kan_Ha_Bild.BildID, Kan_Ha_Bild.BildText, Bild.AltText, Bild.Address, Fotograf.Namn from Kan_Ha_Bild left join Bild on Kan_Ha_Bild.BildID=Bild.BildID left join Fotograf on Bild.FotografID=Fotograf.FotografID where ArtikelID='$ArtID'";
+$sql = "select Picture_Article_Relation.PictureID, Picture_Article_Relation.PictureText, Picture.AltText, Picture.Address, User.Name from Picture_Article_Relation left join Picture on Picture_Article_Relation.PictureID=Picture.PictureID left join User on Picture.UserID=User.UserID where ArticleID='$ArtID'";
 $result = mysqli_query($link, $sql);
 $row1 = mysqli_fetch_array($result);
 
 echo('<h2>'.$row[1].'</h2>');
 echo('<h3>'.$row[4].'</h3>');
-echo('<div class="bildfloat">');
+echo('<div class="Picturefloat">');
 echo('<img src="'.$row1[3].'" alt="'.$row1[2].'" />');
 echo('<cite>'.$row1[1].'</cite>');
 echo('</div>');
 echo('<p class"ingress">'.$row[2].'</p><p>'.$row[3].'</p>');
 
-$sql = "select Owner.AnstallningsID, Redaktionsmedlem.Namn from Owner left join Redaktionsmedlem on Owner.AnstallningsID=Redaktionsmedlem.AnstallningsID where ArtikelID='$ArtID'";
+$sql = "select Owner.UserID, User.Name from Owner left join User on Owner.UserID=User.UserID where ArticleID='$ArtID'";
 $result = mysqli_query($link, $sql);
 if (!$result)
 {
