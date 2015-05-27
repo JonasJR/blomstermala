@@ -54,7 +54,7 @@
 
 $ArtID = $_GET['ArtID'];
 
-$sql = "select Article.ArticleID, Article.Title, Article.Ingress, Article.Content, Article.Date from Article where ArticleID='$ArtID'";
+$sql = "select Article.ArticleID, Article.Title, Article.Preamble, Article.Content, Article.Date from Article where ArticleID='$ArtID'";
 $result = mysqli_query($link, $sql);
 if (!$result)
 {
@@ -74,7 +74,7 @@ echo('<div class="Picturefloat">');
 echo('<img src="'.$row1[3].'" alt="'.$row1[2].'" />');
 echo('<cite>'.$row1[1].'</cite>');
 echo('</div>');
-echo('<p class"ingress">'.$row[2].'</p><p>'.$row[3].'</p>');
+echo('<p class"Preamble">'.$row[2].'</p><p>'.$row[3].'</p>');
 
 $sql = "select Owner.UserID, User.Name from Owner left join User on Owner.UserID=User.UserID where ArticleID='$ArtID'";
 $result = mysqli_query($link, $sql);
