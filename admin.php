@@ -10,7 +10,7 @@
 <?php
   echo print_r($_POST);
 
-  if ($_POST['username']) {
+  if ( isset($_POST['username']) ) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -23,6 +23,14 @@
     } else {
       $error = "Invalid email or password";
     }
+  }
+
+  if ( isset($_POST['title']) ) {
+    $title = $_POST['title'];
+    $body  = $_POST['body'];
+
+    // Code to insert
+    //$sql = "INSERT INTO "
   }
 ?>
 
@@ -44,13 +52,30 @@
           <form method="post" action="" class="form-group">
             <label for="title">Titel</label>
             <input type="text" name="title" class="form-control">
-            <textarea name="content" class="form-control"></textarea>
-            <button type="submit" class="btn btn-default">Spara</button>
+            <label for="body">Text</label>
+            <textarea name="body" rows="10" class="form-control"></textarea>
+            <button type="submit" class="btn btn-default pull-right">Spara</button>
           </form>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
+        <?php
+          $sql = "SELECT * FROM Artikel";
+          $result = mysqli_query($link, $sql);
+
+
+          if (!$result)
+          {
+          	echo('Fel vid inläsning av artiklar' . mysqli_error($link));
+          	exit();
+          }
+          while ($row = mysqli_fetch_array($result)) {
+            echo '<article>';
+            echo '<header>' + $row['Rubrik'] + '</header>';
+            echo '</article>';
+          }
+        ?>
         </div>
       </div>
     <?php else: ?>
