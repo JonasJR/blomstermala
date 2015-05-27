@@ -17,6 +17,7 @@ drop table if exists Sub_Kategori;
 drop table if exists Kategori;
 drop table if exists Anvandare;
 drop table if exists Bild;
+drop table if exists Owner;
 
 -- ==================
 -- Skapa nya tabeller
@@ -43,7 +44,14 @@ create table Artikel
  SubKategoriID	int NOT NULL,
  primary key (ArtikelID),
  foreign key (SubKategoriID) references Sub_Kategori(SubKategoriID))ENGINE=InnoDB CHARACTER SET=utf8;
-
+ 
+create table Anvandare 
+(AnvandarID	     int NOT NULL,
+ Namn	     	varchar(30),
+ Email	     	varchar(50),
+ Password	varchar(20),
+ Moderator	boolean,
+ primary key(AnvandarID))ENGINE=InnoDB CHARACTER SET=utf8;
 create table Bild
 (Hojd		int,
 Bredd		int,
@@ -62,21 +70,13 @@ primary key (ArtikelID, BildID),
 foreign key (ArtikelID) references Artikel(ArtikelID),
 foreign key (BildID) references Bild(BildID))ENGINE=InnoDB CHARACTER SET=utf8;
 
-create table Anvandare 
-(AnvandarID	     int NOT NULL,
- Namn	     	varchar(30),
- Email	     	varchar(50),
- Password	varchar(20),
- Moderator	boolean,
- primary key(AnvandarID))ENGINE=InnoDB CHARACTER SET=utf8;
-
 create table Owner
 (ArtikelID		int NOT NULL,
 AnvandarID			int NOT NULL,
-primary key (ArtikelID, AnstallningsID),
+primary key (ArtikelID, AnvandarID),
 foreign key (ArtikelID) references Artikel(ArtikelID),
 foreign key (AnvandarID) references Anvandare(AnvandarID))ENGINE=InnoDB CHARACTER SET=utf8;
- 
+
 create table Kommentar
 (Innehall	varchar(500),
 ArtikelID	int NOT NULL,
