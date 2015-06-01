@@ -23,7 +23,7 @@
 	<div class="row">
 	<div class="col-md-4">
 	<?php
-    $sql = "select Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
+    $sql = "select Category.CategoryID, Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
 
     $result = mysqli_query($link, $sql);
     if (!$result) {
@@ -36,14 +36,14 @@ $owner = "";
 echo("<ul>\n");
 while ($row = mysqli_fetch_array($result))
 {
-	if (($row[0]!=$owner) && ($owner!="")){
+	if (($row[1]!=$owner) && ($owner!="")){
 			echo("\t</ul>\n</li>\n");
 		}
-	if ($row[0]!=$owner){
-		echo('<li><a href="">'.$row[0]."</a>\n\t<ul>\n");
-		$owner=$row[0];
+	if ($row[1]!=$owner){
+		echo('<li><a href="index.php?cat='.$row[0].'&sub_cat=0">'.$row[1]."</a>\n\t<ul>\n");
+		$owner=$row[1];
 	}
-	echo('<li><a href="index.php?cat='.$row[2].'">'.$row[1].'</a></li>');
+	echo('<li><a href="index.php?cat='.$row[0].'&sub_cat='.$row[3].'">'.$row[2].'</a></li>');
 
 
 }
@@ -55,15 +55,22 @@ echo("</ul>\n");
 				<?php
 
 $cat = $_GET['cat'];
+$sub_cat = $_GET['sub_cat'];
 
 if ($cat==null)
 {
-$sql = "select Title, Preamble, Date, ArticleID from Article order by ArticleID desc limit 5";
+	$sql = "select Title, Preamble, Date, ArticleID from Article order by ArticleID desc limit 5";
 }
 else
 {
-$sql = "select Title, Preamble, Date, ArticleID from Article where SubCategoryID='$cat'";
+	if ($sub_cat=="0"){
+	$sql = "select Title, Preamble, Date, ArticleID from Article join Sub_Category on Article.SubCategoryID=Sub_Category.SubCategoryID join Category on Sub_Category.CategoryID=Category.CategoryID where Category.CategoryID='$cat'";
 }
+	else{
+		$sql = "select Title, Preamble, Date, ArticleID from Article join Sub_Category on Article.SubCategoryID=Sub_Category.SubCategoryID join Category on Sub_Category.CategoryID=Category.CategoryID where Sub_Category.SubCategoryID='$sub_cat' and Category.CategoryID='$cat'";
+	}
+}
+
 $result = mysqli_query($link, $sql);
 if (!$result)
 {
@@ -77,7 +84,7 @@ while ($row = mysqli_fetch_array($result))
 	echo("\t\t<h2>".$row[0]."</h2>\n");
 	echo('<h3>'.$row[2].'</h3>');
 	echo('<p class="Preamble">'.$row[1].'</p>');
-	echo('<a href="webbArticle.php?ArtID='.$row[3].'">Läs mer --></a>');
+	echo('<a href="Article.php?ArtID='.$row[3].'">Läs mer --></a>');
 	echo('</div>');
 }
 ?>
@@ -98,7 +105,7 @@ if (!$result)
 while ($row = mysqli_fetch_array($result))
 {
 
-	echo('<li><a href="webbArticle.php?ArtID='.$row[0].'">'.$row[2].' ('.$row[3].')</a></li>');
+	echo('<li><a href="Article.php?ArtID='.$row[0].'">'.$row[2].' ('.$row[3].')</a></li>');
 }
 ?>
 	</div>
