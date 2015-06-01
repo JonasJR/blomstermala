@@ -43,7 +43,9 @@ while ($row = mysqli_fetch_array($result))
 		echo('<li><a href="index.php?cat='.$row[0].'&sub_cat=0">'.$row[1]."</a>\n\t<ul>\n");
 		$owner=$row[1];
 	}
-	echo('<li><a href="index.php?cat='.$row[0].'&sub_cat='.$row[3].'">'.$row[2].'</a></li>');
+	if($row[2]!=null){
+		echo('<li><a href="index.php?cat='.$row[0].'&sub_cat='.$row[3].'">'.$row[2].'</a></li>');
+	}
 }
 echo("\t</ul>\n</li>\n");
 echo("</ul>\n");
