@@ -8,8 +8,6 @@
 ?>
 
 <?php
-  echo print_r($_POST);
-  echo "<br>" . $_GET['deleteItem'];
 
   if ( isset($_POST['username']) ) {
     $username = $_POST['username'];
@@ -36,9 +34,18 @@
   if ( isset($_POST['title']) ) {
     $title = $_POST['title'];
     $body  = $_POST['body'];
+    $preamble = $_POST['preamble'];
+    $category = $_POST['category'];
 
-    // Code to insert
-    //$sql = "INSERT INTO "
+    if ($title != "" || $body = "" || $preamble != "" || $category != "") {
+      $sql = "INSERT INTO Article (Title, Preamble, Content, Date, SubCategoryID)
+              VALUES ('$title', '$preamble', '$body', now(), '$category')";
+      $result = mysqli_query($link, $sql);
+
+      if (!$result) {
+        die("Något gick fel..." . mysqli_error($link));
+      }
+    }
   }
 ?>
 
@@ -82,16 +89,35 @@
           <form method="post" action="" class="form-group">
             <label for="title">Titel</label>
             <input type="text" name="title" class="form-control">
+            <label for="preamble">Ingress</label>
+            <textarea name="preamble" rows="5" class="form-control"></textarea>
             <label for="body">Text</label>
             <textarea name="body" rows="10" class="form-control"></textarea>
-            <button type="submit" class="btn btn-default pull-right">Spara</button>
+            <label for="category">Categori</label>
+            <select class="form-control" name="category">
+            <?php
+
+              $sql = "SELECT SubCategoryID, SubCategoryname FROM Sub_Category";
+              $result = mysqli_query($link, $sql);
+
+              if (!$result) {
+                die("Error fetching categories... " . mysqli_error($link));
+              }
+
+              while($row = mysqli_fetch_array($result)) {
+                echo '<option value="' . $row['SubCategoryID'] . '">' . $row['SubCategoryname'] . '</option>';
+              }
+
+            ?>
+            </select>
+            <button type="submit" class="btn btn-primary pull-right">Spara</button>
           </form>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
         <?php
-          $sql = "SELECT * FROM Article";
+          $sql = "SELECT * FROM Article ORDER BY Date DESC";
           $result = mysqli_query($link, $sql);
 
 

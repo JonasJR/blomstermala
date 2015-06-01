@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="row">
-	<div class="col-md-4">
+	<div class="col-md-3">
 	<?php
     $sql = "select Category.CategoryID, Categoryname, SubCategoryname, SubCategoryID from Category left join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
 
@@ -49,7 +49,7 @@ echo("\t</ul>\n</li>\n");
 echo("</ul>\n");
 ?>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-7">
 				<?php
 
 $cat = $_GET['cat'];
@@ -87,7 +87,7 @@ while ($row = mysqli_fetch_array($result))
 }
 ?>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-2">
 		<h3>Våra mest kommenterade artiklar</h3>
 		<?php
 
