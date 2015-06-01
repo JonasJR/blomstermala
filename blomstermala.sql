@@ -24,12 +24,12 @@ drop table if exists Owner;
 -- ==================
  
 create table Category
-(CategoryID     int NOT NULL,
+(CategoryID     int NOT NULL AUTO_INCREMENT,
  Categoryname	varchar(50),
  primary key (CategoryID))ENGINE=InnoDB CHARACTER SET=utf8;
  
  create table Sub_Category
-(SubCategoryID     int NOT NULL,
+(SubCategoryID     int NOT NULL AUTO_INCREMENT,
  SubCategoryname	varchar(50),
  CategoryID			int NOT NULL,
  primary key (SubCategoryID),
@@ -40,13 +40,13 @@ create table Article
  Preamble     		varchar(200),
  Content     		text,
  Date			date,
- ArticleID		int NOT NULL,
+ ArticleID		int NOT NULL AUTO_INCREMENT,
  SubCategoryID	int NOT NULL,
  primary key (ArticleID),
  foreign key (SubCategoryID) references Sub_Category(SubCategoryID))ENGINE=InnoDB CHARACTER SET=utf8;
  
 create table User 
-(UserID	     int NOT NULL,
+(UserID	     int NOT NULL AUTO_INCREMENT,
  Name	     	varchar(30),
  Email	     	varchar(50),
  Password	varchar(20),
@@ -57,7 +57,7 @@ create table Picture
 (Height		int,
 Width		int,
 AltText		varchar(100),
-PictureID		int,
+PictureID		int AUTO_INCREMENT,
 UserID	int,
 Address		varchar(100),
 primary key (PictureID),
@@ -68,26 +68,32 @@ create table Picture_Article_Relation
 PictureID			int,
 PictureText		varchar(200),
 primary key (ArticleID, PictureID),
-foreign key (ArticleID) references Article(ArticleID),
+foreign key (ArticleID) references Article(ArticleID)
+	on delete cascade
+	on update cascade,
 foreign key (PictureID) references Picture(PictureID))ENGINE=InnoDB CHARACTER SET=utf8;
 
 create table Owner
 (ArticleID		int NOT NULL,
 UserID			int NOT NULL,
 primary key (ArticleID, UserID),
-foreign key (ArticleID) references Article(ArticleID),
+foreign key (ArticleID) references Article(ArticleID)
+	on delete cascade
+	on update cascade,
 foreign key (UserID) references User(UserID))ENGINE=InnoDB CHARACTER SET=utf8;
 
 create table Comment
 (Content	varchar(500),
 ArticleID	int NOT NULL,
-CommentID	int NOT NULL,
+CommentID	int NOT NULL AUTO_INCREMENT,
 Date		date,
 Ok			boolean,
 UserID	int NOT NULL,
 primary key (CommentID),
 foreign key (UserID) references User(UserID),
-foreign key (ArticleID) references Article(ArticleID))ENGINE=InnoDB CHARACTER SET=utf8;
+foreign key (ArticleID) references Article(ArticleID)
+	on delete cascade
+	on update cascade)ENGINE=InnoDB CHARACTER SET=utf8;
 
 
 -- ============================

@@ -9,6 +9,7 @@
 
 <?php
   echo print_r($_POST);
+  echo "<br>" . $_GET['deleteItem'];
 
   if ( isset($_POST['username']) ) {
     $username = $_POST['username'];
@@ -23,9 +24,9 @@
       exit();
     }
 
-    if ($row = mysql_fetch_array($result)) {
+    if ($row = mysqli_fetch_array($result)) {
       if ($row['Moderator'] == true) {
-        $_SESSION['id'] = $row['id'];
+        $_SESSION['id'] = $row['UserID'];
       }
     } else {
       $error = "Invalid email or password";
@@ -49,10 +50,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap 101 Template</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
   </head>
   <body>
     <div class="container">
     <?php if(isset($_SESSION['id'])): ?>
+      <?php if(isset($_GET['deleteItem'])) {
+        $deleteItem = $_GET['deleteItem'];
+
+        $sql = "delete from Comment where ArticleID=$deleteItem";
+        $result = mysqli_query($link, $sql);
+
+        $sql = "delete from Picture_Article_Relation where ArticleID=$deleteItem";
+        $result = mysqli_query($link, $sql);
+
+        $sql = "delete from Owner where ArticleID=$deleteItem";
+        $result = mysqli_query($link, $sql);
+
+        $sql = "delete from Article where ArticleID=$deleteItem";
+        $result = mysqli_query($link, $sql);
+
+        if (!$result) {
+          die("Something went wrong when trying to delete item..." . mysqli_error($link));
+        }
+
+      }
+      ?>
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <h1>Skriv ny artikel</h1>
@@ -77,12 +100,17 @@
           	echo('Fel vid inläsning av artiklar' . mysqli_error($link));
           	exit();
           }
+
+          echo '<form action="" method="post">';
           while ($row = mysqli_fetch_array($result)) {
-            echo '<article>';
-            echo '<header>' + $row['Title'] + '</header>';
-            echo '<body>';
-            echo '</article>';
+            echo '<div class="row">';
+            echo '<div class="col-md-12">';
+            echo '<h3>' . $row['Title'];
+            echo ' <a href="admin.php?deleteItem=' . $row['ArticleID'] . '"><i class="glyphicon glyphicon-trash"></i></a></h3>';
+            echo '</div>';
+            echo '</div>';
           }
+          echo '</form>';
         ?>
         </div>
       </div>
