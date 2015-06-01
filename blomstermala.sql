@@ -102,18 +102,18 @@ foreign key (ArticleID) references Article(ArticleID)
 
 insert into Category (CategoryID, Categoryname) values
 (1,'Nyheter'),
-(2,'Om Äspåröd'),
-(3,'En till Category'),
-(4,'Den sista Categoryn');
+(2,'Sport'),
+(3,'Ekonomi'),
+(4,'Övrigt');
 
 insert into Sub_Category (SubCategoryID, SubCategoryname, CategoryID) values
-(1,'En subCategory',3),
-(2,'EntillSubCategory',2),
-(3,'En tredje SubCategory',2),
-(4,'Det finns många',3),
-(5,'Många SubCategoryer',1),
-(6,'En hel drös',1),
-(7,'Väldigt många',1);
+(1,'Aktier',3),
+(2,'Fotboll',2),
+(3,'Hockey',2),
+(4,'Fonder',3),
+(5,'Lokalt',1),
+(6,'Sverige',1),
+(7,'Världen',1);
 
 insert into User (UserID, Name, Email,Password,Moderator) values
 (00001,'Helge Knutsson','helge.knutsson@gmail.com','PASS', false),
@@ -124,12 +124,11 @@ insert into User (UserID, Name, Email,Password,Moderator) values
 (00006,'Jonas Remgård','jonas.remgard@gmail.com','nisse123',true);
 
 insert into Article (ArticleID, SubCategoryID, Title, Preamble, Content, Date ) values
-(1, 3,'Hemlösa får komma in gratis', 'Flera hemlösa har fått komma in gratis på Äventyrslandet','Här står en massa grejjer','2014-04-01'),
-(2, 4,'Titleen för andra','Preambleen för andra','Brödtexten för andra','2014-02-11'),
-(3, 6,'Många har sett Äspåröd växa','Äspåröd är et av landets äldsta äventyrsparker',
-'Riktigt lång text om hur bra äspåröd är. Det finns massor av grejer att göra här. 
-Och man skryter även mycket om hur gammalt och fint äspåröd är men även nytänkande och ungdomligt','2012-01-02'),
-(4, 1,'Next one','En mycket bra Preamble för den här tredje','Här är hela Articlen asså. Den är mycket lång. Med flera meningar.','2014-05-22');
+(1, 2,'Blomstermåla IF vidare till slutspel', 'Blomstermåla IF har gått vidare till slutspel','Blomstermåla IF amasdio jas ninad a niains nasdfnan a npafn andf iasnd fknsodnf s insd nspN IPD FNASD PNASD FNSDFIP M NSIDN F niksndfgs imsm os gouiausdhfhuio ui aahaoh oasbndfnuidfasbn oabndasdiansindian','2014-04-01'),
+(2, 4,'Fonderna stiger','KÖP KÖP KÖP!!!!','Jag bara skojja... SÄLJ SÄLJ SÄLJ!!!!!!!','2014-02-11'),
+(3, 6,'Statsministern snattar','Stadsministern har sets snatta',
+'I fredags såg man stadsministern snatta fruktansvärda mängder godis... Det är därför ha när så tjock nu såger en av läsarna','2012-01-02'),
+(4, 1,'Aktier i mängder','Aktierna sjunker','Folk har köpt fler aktier än Wallenberg','2014-05-22');
 
 insert into Comment (CommentID, Content, UserID, ArticleID, Date, Ok) values
 (000001,'Jag tycker att äspåröd är hemskt kul att va på! Jag är där varje sommar med mina föräldrar!',00002,3, '2014-05-04',1),
@@ -141,10 +140,10 @@ insert into Comment (CommentID, Content, UserID, ArticleID, Date, Ok) values
 (000007,'Hej, Jag gillar Äspåröd!',00004,1,'2014-06-06',1);
 
 insert into Picture (PictureID, Height, Width, AltText, UserID, Address) values
-(0001,200,300,'Picture på vattenfall',00005,'media/valborgseld.jpg'),
-(0002,755,500,'Picture på högt hus i parken',00006,'media/valborgseld.jpg'),
-(0003,300,200,'Picture på trollet',00006,'media/valborgseld.jpg'),
-(0004,500,755,'Picture på restaurangen',00006,'media/valborgseld.jpg');
+(0001,572,674,'Hund vid stenmur',00005,'media/golden.jpg'),
+(0002,283,422,'Katt i gräset',00006,'media/katt.jpg'),
+(0003,283,422,'Katten va i gräset',00006,'media/katt.jpg'),
+(0004,283,422,'Katt på morgonen',00006,'media/katt.jpg');
 
 insert into Picture_Article_Relation (ArticleID, PictureID, PictureText) values
 (2,0003,'Trollet i trollskogen har blivit vandaliserat'),
