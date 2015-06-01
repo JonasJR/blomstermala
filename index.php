@@ -23,7 +23,7 @@
 	<div class="row">
 	<div class="col-md-4">
 	<?php
-    $sql = "select Category.CategoryID, Categoryname, SubCategoryname, SubCategoryID from Category inner join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
+    $sql = "select Category.CategoryID, Categoryname, SubCategoryname, SubCategoryID from Category left join Sub_Category on Sub_Category.CategoryID=Category.CategoryID order by Category.CategoryID";
 
     $result = mysqli_query($link, $sql);
     if (!$result) {
@@ -44,8 +44,6 @@ while ($row = mysqli_fetch_array($result))
 		$owner=$row[1];
 	}
 	echo('<li><a href="index.php?cat='.$row[0].'&sub_cat='.$row[3].'">'.$row[2].'</a></li>');
-
-
 }
 echo("\t</ul>\n</li>\n");
 echo("</ul>\n");
