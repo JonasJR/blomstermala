@@ -115,13 +115,13 @@ insert into Sub_Category (SubCategoryID, SubCategoryname, CategoryID) values
 (6,'Sverige',1),
 (7,'Världen',1);
 
-insert into User (UserID, Name, Email,Password,Moderator) values
-(00001,'Helge Knutsson','helge.knutsson@gmail.com','PASS', false),
-(00002,'Arvid Sörensen', 'arvid.sorensen@gmail.com','PASS', false),
-(00003,'Petter Järv','petter.jarv@gmail.com','PASS', false),
-(00004,'Rasmus Mårtensson','rasmus.martenssen@gmail.com','PASS', false),
-(00005,'Jerry Pedersen','jerry.ck.pedersen@gmail.com','nisse123',true),
-(00006,'Jonas Remgård','jonas.remgard@gmail.com','nisse123',true);
+insert into User (UserID, Name, Email,Password,Post) values
+(00001,'Helge Knutsson','helge.knutsson@gmail.com','PASS', null),
+(00002,'Arvid Sörensen', 'arvid.sorensen@gmail.com','PASS', null),
+(00003,'Petter Järv','petter.jarv@gmail.com','PASS', null),
+(00004,'Rasmus Mårtensson','rasmus.martenssen@gmail.com','PASS', null),
+(00005,'Jerry Pedersen','jerry.ck.pedersen@gmail.com','nisse123',Redaktör),
+(00006,'Jonas Remgård','jonas.remgard@gmail.com','nisse123',Fotograf);
 
 insert into Article (ArticleID, SubCategoryID, Title, Preamble, Content, Date ) values
 (1, 2,'Blomstermåla IF vidare till slutspel', 'Blomstermåla IF har gått vidare till slutspel','Blomstermåla IF amasdio jas ninad a niains nasdfnan a npafn andf iasnd fknsodnf s insd nspN IPD FNASD PNASD FNSDFIP M NSIDN F niksndfgs imsm os gouiausdhfhuio ui aahaoh oasbndfnuidfasbn oabndasdiansindian','2014-04-01'),
@@ -130,7 +130,7 @@ insert into Article (ArticleID, SubCategoryID, Title, Preamble, Content, Date ) 
 'I fredags såg man stadsministern snatta fruktansvärda mängder godis... Det är därför ha när så tjock nu såger en av läsarna','2012-01-02'),
 (4, 1,'Aktier i mängder','Aktierna sjunker','Folk har köpt fler aktier än Wallenberg','2014-05-22');
 
-insert into Comment (CommentID, Content, UserID, ArticleID, Date, Ok) values
+insert into Comment (CommentID, Content, UserID, ArticleID, Date, Validated) values
 (000001,'Jag tycker att äspåröd är hemskt kul att va på! Jag är där varje sommar med mina föräldrar!',00002,3, '2014-05-04',1),
 (000002,'Jag tycker också att det är kul!',00004,3,'2014-05-05',1),
 (000003,'Jag kommer ihåg när jag var på Äspåröd för första gången! Oj, vad det har vuxit sedan dess!',00001,2,'2014-05-22',1),
